@@ -30,6 +30,7 @@
 
 static void print_string(const char *str)
 {
+#if 0
 	uint32_t flags;
 
 	while (*str) {
@@ -43,10 +44,12 @@ static void print_string(const char *str)
 			flags = raw_readl(PL011(UARTFR));
 		while (flags & PL011_UARTFR_BUSY);
 	}
+#endif
 }
 
 void init_platform(void)
 {
+#if 0
 	/*
 	 * UART initialisation (38400 8N1)
 	 */
@@ -66,4 +69,5 @@ void init_platform(void)
 	/* START | WRITE | MUXFPGA | SITE_MB */
 	raw_writel((1 << 31) | (1 << 30) | (7 << 20) | (0 << 16),
 				V2M_SYS(CFGCTRL));
+#endif
 }

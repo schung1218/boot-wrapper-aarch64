@@ -19,8 +19,10 @@ TARGET(binary)
 #ifdef XEN
 INPUT(XEN)
 #endif
+/*
 INPUT(KERNEL)
 INPUT(./fdt.dtb)
+*/
 
 #ifdef USE_INITRD
 INPUT(FILESYSTEM)
@@ -36,7 +38,8 @@ SECTIONS
 	 */
 	.kernel (PHYS_OFFSET + KERNEL_OFFSET): {
 		kernel = .;
-		KERNEL
+/*	 	KERNEL  
+*/
 	}
 
 #ifdef XEN
@@ -52,7 +55,8 @@ SECTIONS
 
 	.dtb (PHYS_OFFSET + FDT_OFFSET): {
 		dtb = .;
-		./fdt.dtb
+/*		./fdt.dtb  
+*/
 	}
 
 #ifdef USE_INITRD
@@ -62,7 +66,6 @@ SECTIONS
 		fs_size = . - filesystem;
 	}
 #endif
-
 	.boot PHYS_OFFSET: {
 		*(.init)
 		*(.text* .data* .rodata* .bss* COMMON)
@@ -76,5 +79,5 @@ SECTIONS
 		QUAD(0x0)
 	}
 
-	ASSERT(etext <= (PHYS_OFFSET + TEXT_LIMIT), ".text overflow!")
+	ASSERT(etext <= (PHYS_OFFSET + TEXT_LIMIT), ".text overflow!") 
 }
